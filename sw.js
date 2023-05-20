@@ -52,11 +52,9 @@ self.addEventListener('fetch', function (event) {
           return cachedResponse;
         }
 
-        // Fallback to network if we don't
         return fetch(event.request).then(function (fetchedResponse) {
-          cache.put(event.request, fetchedResponse.clone()).then(() => {
-            return fetchedResponse;
-          });
+          cache.put(event.request, fetchedResponse.clone());
+          return fetchedResponse;
         });
       });
     })
